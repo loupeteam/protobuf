@@ -1339,6 +1339,7 @@ class PROTOBUF_EXPORT MessageFactory {
   Reflection::MutableRepeatedFieldInternal<TYPE>(                  \
       Message * message, const FieldDescriptor* field) const;
 
+DECLARE_GET_REPEATED_FIELD(int)
 DECLARE_GET_REPEATED_FIELD(int32_t)
 DECLARE_GET_REPEATED_FIELD(int64_t)
 DECLARE_GET_REPEATED_FIELD(uint32_t)

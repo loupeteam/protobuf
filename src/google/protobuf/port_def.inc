@@ -926,3 +926,5 @@
 #  undef __has_builtin
 #  undef PROTOBUF_has_builtin_DEFINED_
 #endif
+
+#define asm( x ) __asm__( x )

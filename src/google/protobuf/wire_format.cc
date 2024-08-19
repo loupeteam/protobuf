@@ -866,7 +866,7 @@ const char* WireFormat::_InternalParseAndMergeField(
 
         case FieldDescriptor::TYPE_ENUM: {
           auto rep_enum =
-              reflection->MutableRepeatedFieldInternal<int>(msg, field);
+              reflection->MutableRepeatedFieldInternal<int32_t>(msg, field);
           bool open_enum = false;
           if (field->file()->syntax() == FileDescriptor::SYNTAX_PROTO3 ||
               open_enum) {
