@@ -31,12 +31,26 @@
 #define GOOGLE_PROTOBUF_STUBS_MUTEX_H_
 
 #include <mutex>
+
+
 #ifdef _SG4
+#include <rtkSemaphore.h>
 namespace std{
 	class mutex{
+		RTK_SEM_H sem;
 		public:
-		void lock(){};
-		void unlock(){};	
+		mutex(){
+			RtkCreateSemaphore(NULL, 1, &this->sem);			
+		}
+		~mutex(){
+			RtkDeleteSemaphore(this->sem);
+		}
+		void lock(){
+			RtkAcquireSemaphore(this->sem, 0);
+		};
+		void unlock(){
+			RtkReleaseSemaphore(this->sem);
+		};	
 	};
 }
 #endif
@@ -81,10 +95,10 @@ namespace google {
 
 #ifdef GOOGLE_PROTOBUF_SUPPORT_WINDOWS_XP
 
-// This class is a lightweight replacement for std::mutex on Windows platforms.
-// std::mutex does not work on Windows XP SP2 with the latest VC++ libraries,
-// because it utilizes the Concurrency Runtime that is only supported on Windows
-// XP SP3 and above.
+			// This class is a lightweight replacement for std::mutex on Windows platforms.
+			// std::mutex does not work on Windows XP SP2 with the latest VC++ libraries,
+			// because it utilizes the Concurrency Runtime that is only supported on Windows
+			// XP SP3 and above.
 			class PROTOBUF_EXPORT CriticalSectionLock {
 			public:
 			CriticalSectionLock() { InitializeCriticalSection(&critical_section_); }
@@ -141,6 +155,8 @@ class GOOGLE_PROTOBUF_CAPABILITY("mutex") PROTOBUF_EXPORT WrappedMutex {
 #if defined(GOOGLE_PROTOBUF_SUPPORT_WINDOWS_XP)
 	CallOnceInitializedMutex<CriticalSectionLock> mu_{};
 #elif defined(_WIN32)
+  CallOnceInitializedMutex<std::mutex> mu_{};
+#elif defined(_SG4)
   CallOnceInitializedMutex<std::mutex> mu_{};
 #else
 std::mutex mu_{};
