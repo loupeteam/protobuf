@@ -32,8 +32,14 @@
 
 #include <mutex>
 
+// Define _RTK_SUPPORT for B&R builds 
+// Define _RTK_SUPPORT_DISABLED for other environments
+#if defined(_SG4) && !(defined(_RTK_SUPPORT) || defined(_RTK_SUPPORT_DISABLED))
+	#error "Define _RTK_SUPPORT for B&R builds. Define _RTK_SUPPORT_DISABLED for other environments."
+#endif
 
-#ifdef _SG4
+#ifdef _RTK_SUPPORT
+
 #include <rtkSemaphore.h>
 namespace std{
 	class mutex{
