@@ -2739,7 +2739,7 @@ HANDLE_TYPE(uint64_t, FieldDescriptor::CPPTYPE_UINT64, -1);
 HANDLE_TYPE(float, FieldDescriptor::CPPTYPE_FLOAT, -1);
 HANDLE_TYPE(double, FieldDescriptor::CPPTYPE_DOUBLE, -1);
 HANDLE_TYPE(bool, FieldDescriptor::CPPTYPE_BOOL, -1);
-#ifdef _SG4
+#ifdef _RTK_SUPPORT
 HANDLE_TYPE(int, FieldDescriptor::CPPTYPE_INT32, -1);
 #endif
 

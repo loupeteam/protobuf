@@ -162,7 +162,7 @@ class GOOGLE_PROTOBUF_CAPABILITY("mutex") PROTOBUF_EXPORT WrappedMutex {
 	CallOnceInitializedMutex<CriticalSectionLock> mu_{};
 #elif defined(_WIN32)
   CallOnceInitializedMutex<std::mutex> mu_{};
-#elif defined(_SG4)
+#elif defined(_RTK_SUPPORT)
   CallOnceInitializedMutex<std::mutex> mu_{};
 #else
 std::mutex mu_{};
