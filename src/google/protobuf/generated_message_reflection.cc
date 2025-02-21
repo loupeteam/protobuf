@@ -2739,9 +2739,11 @@ HANDLE_TYPE(uint64_t, FieldDescriptor::CPPTYPE_UINT64, -1);
 HANDLE_TYPE(float, FieldDescriptor::CPPTYPE_FLOAT, -1);
 HANDLE_TYPE(double, FieldDescriptor::CPPTYPE_DOUBLE, -1);
 HANDLE_TYPE(bool, FieldDescriptor::CPPTYPE_BOOL, -1);
-#ifdef _RTK_SUPPORT
+//#ifdef _RTK_SUPPORT 
+//NOTE: This has cause an issues before. I'm not sure why we need it back now
+//But if you find this later, know it was a problem as some point
 HANDLE_TYPE(int, FieldDescriptor::CPPTYPE_INT32, -1);
-#endif
+//#endif
 
 #undef HANDLE_TYPE
 
