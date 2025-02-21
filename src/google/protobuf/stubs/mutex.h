@@ -38,28 +38,6 @@
 	#error "Define _RTK_SUPPORT for B&R builds. Define _RTK_SUPPORT_DISABLED for other environments."
 #endif
 
-#ifdef _RTK_SUPPORT
-
-#include <rtkSemaphore.h>
-namespace std{
-	class mutex{
-		RTK_SEM_H sem;
-		public:
-		mutex(){
-			RtkCreateSemaphore(NULL, 1, &this->sem);			
-		}
-		~mutex(){
-			RtkDeleteSemaphore(this->sem);
-		}
-		void lock(){
-			RtkAcquireSemaphore(this->sem, 0);
-		};
-		void unlock(){
-			RtkReleaseSemaphore(this->sem);
-		};	
-	};
-}
-#endif
 #ifdef GOOGLE_PROTOBUF_SUPPORT_WINDOWS_XP
 
 #include <windows.h>
@@ -147,6 +125,8 @@ std::once_flag flag_;
 class GOOGLE_PROTOBUF_CAPABILITY("mutex") PROTOBUF_EXPORT WrappedMutex {
 	public:
 #if defined(__QNX__)
+	constexpr WrappedMutex() = default;
+#elif defined(_RTK_SUPPORT)
 	constexpr WrappedMutex() = default;
 #else
 	constexpr WrappedMutex() {}
